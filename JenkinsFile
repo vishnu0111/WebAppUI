@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+	tools {
+	    maven "M3"
+	 	}
+	stages {
+	    stage('Git CheckOut') {
+		    steps {
+			   git branch: 'main', credentialsId: '', url: 'https://github.com/logicopslab/WebAppForJenkins.git'
+			}
+		}
+        stage('Clean and Install') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+        stage ('Package'){
+            steps {
+                sh 'mvn package'
+             }
+        }
+       }
+}
